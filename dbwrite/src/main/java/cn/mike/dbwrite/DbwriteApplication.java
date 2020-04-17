@@ -1,0 +1,18 @@
+package cn.mike.dbwrite;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@SpringBootApplication
+@MapperScan("cn.mike.dbwrite.mapper")
+@EnableScheduling
+public class DbwriteApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DbwriteApplication.class, args);
+    }
+
+}

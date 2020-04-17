@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mike.stockservice.mapper.TbSkuMapper">
+  <resultMap id="BaseResultMap" type="commons.bean.TbSku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="images" jdbcType="VARCHAR" property="images" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, images, stock, price
+  </sql>
+  <select id="stocks" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from tb_sku
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="commons.bean.TbSku">
+    insert into tb_sku (id, name, images, 
+      stock, price)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=INTEGER}, #{price,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="commons.bean.TbSku">
+    insert into tb_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="images != null">
+        images,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="commons.bean.TbSku">
+    update tb_sku
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="commons.bean.TbSku">
+    update tb_sku
+    set name = #{name,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

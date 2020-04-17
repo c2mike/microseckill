@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mike.orderservice.mapper.TbLimitPolicyMapper">
+  <resultMap id="BaseResultMap" type="commons.bean.TbLimitPolicy">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="quanty" jdbcType="BIGINT" property="quanty" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sku_id, quanty, price, begin_time, end_time
+  </sql>
+  <select id="getPolice" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+
+    </include>
+    FROM
+    tb_limit_policy
+    WHERE
+    sku_id = #{id}
+    AND begin_time &lt; NOW()
+    AND end_time &gt; NOW()
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_limit_policy
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_limit_policy
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="commons.bean.TbLimitPolicy">
+    insert into tb_limit_policy (id, sku_id, quanty, 
+      price, begin_time, end_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{quanty,jdbcType=BIGINT}, 
+      #{price,jdbcType=BIGINT}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="commons.bean.TbLimitPolicy">
+    insert into tb_limit_policy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="quanty != null">
+        quanty,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="quanty != null">
+        #{quanty,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="commons.bean.TbLimitPolicy">
+    update tb_limit_policy
+    <set>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="quanty != null">
+        quanty = #{quanty,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="commons.bean.TbLimitPolicy">
+    update tb_limit_policy
+    set sku_id = #{skuId,jdbcType=BIGINT},
+      quanty = #{quanty,jdbcType=BIGINT},
+      price = #{price,jdbcType=BIGINT},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
