@@ -62,7 +62,7 @@ public class OrderService {
        respBean.setObj(md5);
        SeckillRedisKey seckillRedisKey = new RedisKeyImpl();
        ValueOperations valueOperations = redisTemplate.opsForValue();
-       valueOperations.set(seckillRedisKey.getMd5Key(Long.parseLong(phone)),md5,5*60, TimeUnit.SECONDS);
+       valueOperations.set(seckillRedisKey.getMd5Key(Long.parseLong(phone)),md5,30*60, TimeUnit.SECONDS);
        return respBean;
     }
 
