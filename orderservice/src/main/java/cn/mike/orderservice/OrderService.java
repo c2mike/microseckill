@@ -92,16 +92,16 @@ public class OrderService {
         }
         if(end.containsKey(key3)&&end.get(key3))
         {
-            return RespBean.Error("秒杀结束");
+            return RespBean.Error("卖完了");
         }
         if(setOperations.isMember(redisKey.getSeckillSetKey(sid),phone))
         {
             return RespBean.Error("重复秒杀");
         }
-        if(hashOperations.increment(key3,redisKey.getMountKey(),-1)<0)
+        Long aLong = hashOperations.increment(key3, redisKey.getMountKey(), -1);
+        if(aLong==0)
         {
             end.put(redisKey.getKey(sid),true);
-            return RespBean.Error("卖完了");
         }
         MsgContent msgContent = new MsgContent();
         msgContent.setMsgId(atomicInteger.incrementAndGet());

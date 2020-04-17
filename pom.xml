@@ -21,6 +21,7 @@
         <module>stockservice</module>
         <module>timeservice</module>
         <module>zuulservice</module>
+        <module>configserver</module>
     </modules>
     <name>microseckill</name>
     <build>

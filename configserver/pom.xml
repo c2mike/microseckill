@@ -9,10 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>cn.mike</groupId>
-    <artifactId>timeservice</artifactId>
+    <artifactId>configserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>timeservice</name>
-    <packaging>jar</packaging>
+    <name>configserver</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -27,12 +26,9 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -63,8 +59,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>cn.mike.timeservice.TimeserviceApplication</mainClass>
+                    <mainClass>cn.mike.configserver.ConfigserverApplication</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>
@@ -74,10 +74,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

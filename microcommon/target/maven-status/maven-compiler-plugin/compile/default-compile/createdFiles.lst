@@ -1,8 +1,0 @@
-commons\bean\MsgContent.class
-design\SeckillRedisKey.class
-commons\bean\TbLimitPolicy.class
-commons\bean\TbOrder.class
-commons\bean\TbSku.class
-design\RedisKeyImpl.class
-commons\bean\MsgLog.class
-commons\bean\RespBean.class
