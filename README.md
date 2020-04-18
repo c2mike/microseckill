@@ -14,7 +14,9 @@
 
 关于配置中心
 -- 配置中心只是在网关服务中写入了限流配置，限流数据根据测试的结果来
-
+![image](https://github.com/c2mike/microseckill/blob/master/pic/%E6%8D%95%E8%8E%B712.PNG)
+关于nginx配置
+![image](https://github.com/c2mike/microseckill/blob/master/pic/%E6%8D%95%E8%8E%B711.PNG)
 --关于测试
 因为自己的ECS实例配置为单核2G内存(实际上扣除系统占用的，可用的只有1.4G左右)部署了微服务后内存基本吃完了，没没在ECS上进行部署测试了。一下测试数据取自我个人的PC。配置为8g内存，i5cpu(8核）
 
@@ -37,3 +39,6 @@
 执行秒杀操作接口的测试
 这个接口处理逻辑比较复炸，耗时较高，在并发线程数为4500时出现了较高的错误率
 ![image](https://github.com/c2mike/microseckill/blob/master/pic/%E6%8D%95%E8%8E%B78.PNG)
+调整线程数为3500后正常，平均相应速度为2.7秒
+![image](https://github.com/c2mike/microseckill/blob/master/pic/%E6%8D%95%E8%8E%B710.PNG)
+
