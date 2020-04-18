@@ -20,7 +20,7 @@ public class OrderControl {
     @GetMapping("/hello")
     public String hello()
     {
-        return "hello";
+        return "";
     }
 
     @GetMapping("/md5")

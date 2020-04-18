@@ -66,6 +66,7 @@ public class OrderService {
        return respBean;
     }
 
+    @HystrixCommand(fallbackMethod = "writeMsgError")
     public RespBean order(long sid, String phone, String md5)
     {
         SeckillRedisKey seckillRedisKey = new RedisKeyImpl();
@@ -107,42 +108,19 @@ public class OrderService {
         msgContent.setMsgId(atomicInteger.incrementAndGet());
         msgContent.setPhone(phone);
         msgContent.setSkuId(sid);
+        int i = 1/0;
         amqpTemplate.convertAndSend("microseckill_exchange","microseckill_key",msgContent,new CorrelationData(""+msgContent.getMsgId()));
-        writeMsgLogToDb(msgContent);
+        restTemplate.postForObject("http://dbServer/dbwrite",msgContent,Void.class);
         setOperations.add(redisKey.getSeckillSetKey(sid),phone);
         return RespBean.Ok("下单成功");
     }
 
-
-
-    @HystrixCommand(fallbackMethod = "timeCallError")
-    public long getTime()
+    public RespBean writeMsgError(long sid, String phone, String md5,Throwable t)
     {
-        return restTemplate.getForObject("http://timeserver/time",Long.class);
+        logger.error("sid:{},phone:{},md5:{},message:{}",sid,phone,md5,t.getMessage());
+        return RespBean.Error("调用出错");
     }
 
-
-    public long timeCallError(Throwable t)
-    {
-        System.out.println(t.getMessage());
-        return System.currentTimeMillis();
-    }
-
-    @HystrixCommand(fallbackMethod = "writeMsgError")
-    public Future<Void> writeMsgLogToDb(MsgContent msgContent)
-    {
-        return new AsyncResult<Void>(){
-        public Void invoke()
-        {
-            return restTemplate.postForObject("http://dbServer/dbwrite",msgContent,Void.class);
-        }
-    };
-    }
-
-    public void writeMsgError(MsgContent msgContent,Throwable t)
-    {
-        logger.error("msg send error");
-    }
 
 
 
