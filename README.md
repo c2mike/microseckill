@@ -9,4 +9,4 @@
 --一个用于获取秒杀列表的微服务
 --一个用于读消息队列的写数据库操作的微服务
 --一个配置中心
-
+![image](https://github.com/c2mike/microseckill/blob/master/pic/%E6%8D%95%E8%8E%B7.PNG)
